@@ -1,4 +1,1 @@
 # LifeOfSuweden
-
-github personal token:
-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
