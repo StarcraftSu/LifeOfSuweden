@@ -1,7 +1,17 @@
-import Map from './Map';
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
 
-const API_KEY = 'MpGio2bWZ2c-jJLQKijkqRroZsLY5XcffcvkVeN465M';
+import Map from "./Map";
+import Restaurant from "./Restaurant";
 
-const App: React.FunctionComponent = () => <Map apikey={API_KEY} />;
+const HERE_API_KEY = "7mwd-ZQSD2gjH2pl3i25QpZgbR5wGy_tl7YOIrLurzU";
+
+const App: React.FunctionComponent = () => (
+  <Box>
+    <CssBaseline />
+    <Map apikey={HERE_API_KEY} />
+    <Restaurant apikey={HERE_API_KEY} />
+  </Box>
+);
 
 export default App;
