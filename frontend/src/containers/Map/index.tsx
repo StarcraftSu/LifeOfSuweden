@@ -18,6 +18,13 @@ interface Props {
   apikey: string;
 }
 
+interface TapEvent extends Event {
+  currentPointer?: {
+    viewportX: number;
+    viewportY: number;
+  };
+};
+
 const BROMMA_COORD = {
   lat: 59.358353,
   lng: 17.907425,
@@ -64,13 +71,15 @@ const Map: React.FunctionComponent<Props> = ({ apikey }) => {
       map.current = newMap;
 
       // Add event listener:
-      newMap.addEventListener("tap", (evt) => {
-        const { lat, lng } = newMap.screenToGeo(
-          evt.currentPointer.viewportX,
-          evt.currentPointer.viewportY,
-        );
-        dispatch(setCurrentPosition({ lat, lng }));
-        dispatch(setSelectedRestaurant(null));
+      newMap.addEventListener("tap", (evt: TapEvent) => {
+        if (evt.currentPointer) { 
+          const { lat, lng } = newMap.screenToGeo(
+            evt.currentPointer.viewportX,
+            evt.currentPointer.viewportY,
+          );
+          dispatch(setCurrentPosition({ lat, lng }));
+          dispatch(setSelectedRestaurant(null));
+        }
       });
 
       setIsInitialized(true);
