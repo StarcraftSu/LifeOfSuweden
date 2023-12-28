@@ -1,3 +1,7 @@
-const App:React.FunctionComponent = ()=>(<div>The root component</div>)
+import Map from './Map';
 
-export default App
+const API_KEY = 'MpGio2bWZ2c-jJLQKijkqRroZsLY5XcffcvkVeN465M';
+
+const App: React.FunctionComponent = () => <Map apikey={API_KEY} />;
+
+export default App;
