@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Box } from '@mui/material';
 
-import { selectPosition, setCurrentPosition } from "../store/slices/positionSlice"
+import { selectPosition, setCurrentPosition } from "../store/slices/mapSlice"
 import { useAppSelector, useAppDispatch } from "../store/hooks"
 
 interface Props {

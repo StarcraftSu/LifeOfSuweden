@@ -1,9 +1,9 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit"
-import positionReducer from "./slices/positionSlice"
+import mapReducer from "./slices/mapSlice"
 
 export const store = configureStore({
   reducer: {
-    position: positionReducer,
+    map: mapReducer,
   },
 })
 

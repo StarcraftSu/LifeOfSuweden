@@ -6,7 +6,7 @@ interface Coordinate {
     lng: number;
 }
 
-export interface PositionState {
+export interface MapState {
     currentPosition: Coordinate;
 }
 
@@ -15,12 +15,12 @@ const BROMMA_COORD = {
     lng: 17.907425,
 }
 
-const initialState: PositionState = {
+const initialState: MapState = {
   currentPosition: BROMMA_COORD,
 }
 
-export const positionSlice = createSlice({
-  name: "position",
+export const mapSlice = createSlice({
+  name: "map",
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
@@ -31,10 +31,10 @@ export const positionSlice = createSlice({
   },
 })
 
-export const { setCurrentPosition } = positionSlice.actions
+export const { setCurrentPosition } = mapSlice.actions
 
 // The function below is called a selector and allows us to select a value from
 // the state.
-export const selectPosition = (state: RootState) => state.position.currentPosition;
+export const selectPosition = (state: RootState) => state.map.currentPosition;
 
-export default positionSlice.reducer
+export default mapSlice.reducer
