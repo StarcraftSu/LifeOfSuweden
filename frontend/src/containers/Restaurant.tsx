@@ -13,8 +13,8 @@ const Restaurant: React.FunctionComponent<Props> = ({ apikey }) => {
   const position = useAppSelector(selectPosition);
   const {
     data = [],
-      isSuccess,
-      isFetching,
+    isSuccess,
+    isFetching,
     isLoading,
   } = useGetRestaurantByCoordQuery(
     position

@@ -23,7 +23,8 @@ export const convertJsonToRestaurant = (json: RestaurantJson) => {
   newRestaurant.id = json.id;
   newRestaurant.name = json.title;
   newRestaurant.address =
-    json.address?.label.split(",").slice(1).join("") || "Sorry, address is not available";
+    json.address?.label.split(",").slice(1).join("") ||
+    "Sorry, address is not available";
   newRestaurant.distance = json.distance || 0;
   newRestaurant.position = json.position || newRestaurant.position;
 

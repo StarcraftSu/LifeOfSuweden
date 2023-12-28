@@ -10,6 +10,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import { grey } from "@mui/material/colors";
 
+import LoadingContainer from "../common/LoadingContainer";
 import { Restaurant } from "../../model/restaurant";
 import restaurantIcon from "../../images/restaurant.webp";
 
@@ -47,16 +48,9 @@ const RestaurantDrawer: React.FunctionComponent<Props> = ({
     <Divider />
     <List sx={{ flexGrow: 1, overflow: "auto", position: "relative" }}>
       {isLoading ? (
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%,-50%)",
-          }}
-        >
+        <LoadingContainer>
           <CircularProgress />
-        </Box>
+        </LoadingContainer>
       ) : (
         [...restaurantList]
           .sort((a, b) => a.distance - b.distance)
