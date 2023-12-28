@@ -1,20 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Box } from '@mui/material';
+
+import { selectPosition, setCurrentPosition } from "../store/slices/positionSlice"
+import { useAppSelector, useAppDispatch } from "../store/hooks"
 
 interface Props {
     apikey: string;
-}
-
-const BROMMA_COORD = {
-    lat: 59.358353,
-    lng: 17.907425,
 }
 
 const Map: React.FunctionComponent<Props> = ({ apikey }) => {
     const mapRef = useRef<HTMLDivElement>(null);
     const map = useRef<H.Map | null>(null);
     const platform = useRef<H.service.Platform | null>(null);
-    const [currentPosition, setCurrentPosition] = useState(BROMMA_COORD)
+
+    const currentPosition = useAppSelector(selectPosition)
+    const dispatch = useAppDispatch()
 
     // Get current position
     useEffect(() => {
@@ -22,7 +22,7 @@ const Map: React.FunctionComponent<Props> = ({ apikey }) => {
             const lat = position.coords.latitude;
             const lng = position.coords.longitude;
 
-            setCurrentPosition({lat,lng})
+            dispatch(setCurrentPosition({lat,lng}))
         });
     },[])
 
