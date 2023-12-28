@@ -7,7 +7,7 @@ import Restaurant from "./Restaurant";
 const HERE_API_KEY = "7mwd-ZQSD2gjH2pl3i25QpZgbR5wGy_tl7YOIrLurzU";
 
 const App: React.FunctionComponent = () => (
-  <Box>
+  <Box display="flex">
     <CssBaseline />
     <Map apikey={HERE_API_KEY} />
     <Restaurant apikey={HERE_API_KEY} />

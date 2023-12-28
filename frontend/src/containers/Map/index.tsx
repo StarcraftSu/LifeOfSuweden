@@ -5,12 +5,14 @@ import { skipToken } from "@reduxjs/toolkit/query/react";
 
 import {
   selectPosition,
+  selectSelectedRestaurant,
   setCurrentPosition,
+  setSelectedRestaurant,
 } from "../../store/slices/mapSlice";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { useGetRestaurantByCoordQuery } from "../../store/services/restaurant";
 import LoadingContainer from "../../components/common/LoadingContainer";
-import { addMarker, initializeMap } from "./helper";
+import { addMarker, calculateRoute, initializeMap } from "./helper";
 
 interface Props {
   apikey: string;
@@ -28,6 +30,7 @@ const Map: React.FunctionComponent<Props> = ({ apikey }) => {
   const [isInitialized, setIsInitialized] = useState(false);
 
   const currentPosition = useAppSelector(selectPosition);
+  const selectedRestaurant = useAppSelector(selectSelectedRestaurant);
   const dispatch = useAppDispatch();
 
   const { data: restaurantList = [] } = useGetRestaurantByCoordQuery(
@@ -54,11 +57,22 @@ const Map: React.FunctionComponent<Props> = ({ apikey }) => {
     );
   }, []);
 
-  // Init Map
+  // Init Map & add listener
   useEffect(() => {
     if (!map.current && currentPosition) {
       const newMap = initializeMap(apikey, platform, mapRef, currentPosition);
       map.current = newMap;
+
+      // Add event listener:
+      newMap.addEventListener("tap", (evt) => {
+        const { lat, lng } = newMap.screenToGeo(
+          evt.currentPointer.viewportX,
+          evt.currentPointer.viewportY,
+        );
+        dispatch(setCurrentPosition({ lat, lng }));
+        dispatch(setSelectedRestaurant(null));
+      });
+
       setIsInitialized(true);
 
       window.addEventListener("resize", () => newMap.getViewPort().resize());
@@ -68,7 +82,7 @@ const Map: React.FunctionComponent<Props> = ({ apikey }) => {
   // Recenter if user allow the browser getting the current position
   useEffect(() => {
     if (map.current && currentPosition) {
-      map.current.setCenter(currentPosition);
+      map.current.setCenter(currentPosition, true);
     }
   }, [currentPosition]);
 
@@ -76,8 +90,24 @@ const Map: React.FunctionComponent<Props> = ({ apikey }) => {
     addMarker(restaurantList, currentPosition, map);
   }, [restaurantList, currentPosition, map.current]);
 
+  useEffect(() => {
+    if (!currentPosition) return;
+
+    if (selectedRestaurant) {
+      calculateRoute(
+        platform,
+        map,
+        currentPosition,
+        selectedRestaurant.position,
+        restaurantList,
+      );
+    } else {
+      addMarker(restaurantList, currentPosition, map);
+    }
+  }, [selectedRestaurant, currentPosition, map, platform, restaurantList]);
+
   return (
-    <Box sx={{ flex: "100vw", height: "100vh", position: "relative" }}>
+    <Box sx={{ flex: 1, height: "100vh", position: "relative" }}>
       <LoadingContainer>
         <CircularProgress />
       </LoadingContainer>
