@@ -1,11 +1,11 @@
-import { createBrowserRouter } from 'react-router-dom';
-import App from '../containers/App';
+import { createBrowserRouter } from "react-router-dom";
+import App from "../containers/App";
 
 const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <App />,
-    },
+  {
+    path: "/",
+    element: <App />,
+  },
 ]);
 
 export default router;
