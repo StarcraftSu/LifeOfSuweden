@@ -1,6 +1,7 @@
 # LifeOfSuweden
 
 #### Usage
+cd frontend/
 npm install  
 npm run dev
 
