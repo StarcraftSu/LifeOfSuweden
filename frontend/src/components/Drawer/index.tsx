@@ -61,13 +61,18 @@ const RestaurantDrawer: React.FunctionComponent<Props> = ({
         <LoadingContainer>
           <CircularProgress />
         </LoadingContainer>
+      ) : restaurantList.length === 0 ? (
+        <LoadingContainer sx={{ width: "80%", textAlign: "center" }}>
+          <Typography sx={{ fontSize: 14 }}>
+            Congratulation! You are in a food desert (⊙o⊙)
+          </Typography>
+        </LoadingContainer>
       ) : (
         [...restaurantList]
           .sort((a, b) => a.distance - b.distance)
           .map((restaurant) => {
             const { name, distance, address } = restaurant;
             const isSelected = selectedRestaurant?.name === name;
-
             return (
               <ListItem key={name} disablePadding>
                 <ListItemButton

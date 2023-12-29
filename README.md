@@ -1,7 +1,7 @@
 # LifeOfSuweden
 
 #### Usage
-npm install
+npm install  
 npm run dev
 
 #### Restaurant Recommendation API for China is not available

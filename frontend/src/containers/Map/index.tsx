@@ -23,7 +23,7 @@ interface TapEvent extends Event {
     viewportX: number;
     viewportY: number;
   };
-};
+}
 
 const BROMMA_COORD = {
   lat: 59.358353,
@@ -72,7 +72,7 @@ const Map: React.FunctionComponent<Props> = ({ apikey }) => {
 
       // Add event listener:
       newMap.addEventListener("tap", (evt: TapEvent) => {
-        if (evt.currentPointer) { 
+        if (evt.currentPointer) {
           const { lat, lng } = newMap.screenToGeo(
             evt.currentPointer.viewportX,
             evt.currentPointer.viewportY,
